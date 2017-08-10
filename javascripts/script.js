@@ -1,9 +1,25 @@
 var list = document.getElementById("list-of-repositories")
 
+function createParagraph(content){
+  var paragraph = document.createElement("p");
+  paragraph.innerHTML = content;
+
+  return paragraph;
+}
+
 function addRepoToList(name, url){
-  var p = document.createElement("p");
-  p.innerHTML = "<a href='" + url + "'>" + name + "</a>";
-  list.appendChild(p);
+
+  var repoContainer = document.createElement("div");
+  repoContainer.classList.add("repo-container");
+
+  // Name / URL
+  var a = document.createElement("a");
+  a.innerHTML = name;
+  a.setAttribute("href", url)
+  repoContainer.appendChild(a);
+
+  // Add our repo to the list of repos
+  list.appendChild(repoContainer);
 }
 function processResponse(response){
   var edges = response.data.viewer.repositories.edges;
@@ -27,7 +43,16 @@ var query = `query {
            }
            name
            url
-         }
+           stargazers{
+             totalCount
+           }
+           issues{
+             totalCount
+           }
+           pullRequests{
+             totalCount
+          }
+        }
       }
      }
    }
