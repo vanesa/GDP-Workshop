@@ -1,8 +1,8 @@
 var list = document.getElementById("list-of-repositories")
 
-function addRepoToList(name){
+function addRepoToList(name, url){
   var p = document.createElement("p");
-  p.innerHTML = name;
+  p.innerHTML = "<a href='" + url + "'>" + name + "</a>";
   list.appendChild(p);
 }
 function processResponse(response){
@@ -11,8 +11,9 @@ function processResponse(response){
     var edge = edges[i];
     var node = edge.node;
     var name = node.name;
+    var url = node.url;
 
-    addRepoToList(name);
+    addRepoToList(name, url);
   }
 }
 
